@@ -95,7 +95,7 @@ export class ActivityService {
             return ["Invalid activity"];
         }
         const errors = [];
-        if (!query._id) {
+        if (!activity._id) {
             errors.push("Invalid activity");
         }
         return errors;
