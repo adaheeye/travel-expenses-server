@@ -9,6 +9,7 @@ export class TravelerRouter {
         this.service = service;
 
         this.router.get("/traveler", asyncHandler(this.findTravelerByParams.bind(this)));
+        this.router.get("/traveler/:_id", asyncHandler(this.findTravelerById.bind(this)));
         this.router.get("/travelers", asyncHandler(this.findAllTravelers.bind(this)));
         this.router.post("/traveler", asyncHandler(this.createTraveler.bind(this)));
         this.router.post("/travelers", asyncHandler(this.createManyTravelers.bind(this)));
@@ -27,9 +28,12 @@ export class TravelerRouter {
         return res.status(200).json(traveler);
     }
 
-    // TODO
     async findTravelerById(req, res) {
-
+        if (!req?.params?._id) {
+            throw new Error("You need _id in order to query for a traveler");
+        }
+        const traveler = await this.service.findTravelerById(req.params._id);
+        return res.status(200).json(traveler);
     }
 
     async createTraveler(req, res) {
@@ -52,7 +56,10 @@ export class TravelerRouter {
 
     async deleteTraveler(req, res) {
         console.log('req.params: ', req.params);
-        const deletedTraveler = await this.service.deleteTraveler(req.params);
+        if (!req?.params?._id) {
+            throw new Error("You need _id in order to query for a traveler");
+        }
+        const deletedTraveler = await this.service.deleteTraveler(req.params._id);
         // TODO make sure we don't delete all from the frontEnd, specially `All`
         console.log('deletedTraveler: ', deletedTraveler);
         if (deletedTraveler?.deletedCount > 0) {

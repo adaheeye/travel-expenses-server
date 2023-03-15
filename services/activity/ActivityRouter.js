@@ -11,6 +11,7 @@ export class ActivityRouter {
 
         this.router.get("/activity", asyncHandler(this.findActivityByParams.bind(this)));
         this.router.get("/activities", asyncHandler(this.findAllActivities.bind(this)));
+        this.router.get("/activity/:_id", asyncHandler(this.findActivityById.bind(this)));
         this.router.post("/activity", asyncHandler(this.createActivity.bind(this)));
         this.router.post("/activities", asyncHandler(this.createManyActivities.bind(this)));
         this.router.put("/activity", asyncHandler(this.updateActivity.bind(this)));
@@ -34,9 +35,12 @@ export class ActivityRouter {
         return res.status(200).json(activity);
     }
 
-    // TODO
     async findActivityById(req, res) {
-
+        if (!req?.params?._id) {
+            throw new Error("You need _id in order to query for an activity");
+        }
+        const activity = await this.service.findActivityById(req.params._id);
+        return res.status(200).json(activity);
     }
 
     async createActivity(req, res) {
@@ -57,9 +61,10 @@ export class ActivityRouter {
     }
 
     async deleteActivity(req, res) {
-        console.log('req.params: ', req.params);
-        const deletedActivity = await this.service.deleteActivity(req.params);
-        console.log('deletedActivity: ', deletedActivity);
+        if (!req.params._id) {
+            throw new Error("You need _id in order to query for an activity");
+        }
+        const deletedActivity = await this.service.deleteActivity(req.params._id);
         if (deletedActivity.deletedCount > 0) {
             return res.status(200).json({
                 message: 'Deleted an activity'

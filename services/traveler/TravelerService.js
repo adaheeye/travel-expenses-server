@@ -30,6 +30,10 @@ export class TravelerService {
         return this.dao.findTravelerByParams(query)
     }
 
+    async findTravelerById(_id) {
+        return this.dao.findTravelerById(_id)
+    }
+
     async updateTraveler(query, updatedTraveler, upsert) {
         const errors = this.validateTravelerOnUpdate(updatedTraveler, query);
         if (errors && errors.length) {
@@ -38,11 +42,8 @@ export class TravelerService {
         return this.dao.updateTraveler(query, updatedTraveler, upsert);
     }
 
-    async deleteTraveler(params) {
-        if (!params._id) {
-            throw new Error("You need _id in order to query for a traveler");
-        }
-        return this.dao.deleteTraveler(params);
+    async deleteTraveler(_id) {
+        return this.dao.deleteTraveler(_id);
     }
 
     async deleteAllTravelers() {

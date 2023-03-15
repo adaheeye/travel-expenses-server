@@ -11,6 +11,11 @@ export class ActivityDao {
         return ActivityModel.findOne(this.getActivityFilter(query)).populate('paidBy owedBy');
     }
 
+    async findActivityById(_id) {
+        let filter = {_id: mongoose.Types.ObjectId(_id)};
+        return ActivityModel.findOne(filter).populate('paidBy owedBy');
+    }
+
     async createActivity(activity) {
         return ActivityModel.create(activity)/*.populate('paidBy owedBy')*/;
     }
@@ -27,8 +32,8 @@ export class ActivityDao {
             .populate('paidBy owedBy');
     }
 
-    async deleteActivity(params) {
-        let filter = { _id: mongoose.Types.ObjectId(params._id)};
+    async deleteActivity(_id) {
+        let filter = { _id: mongoose.Types.ObjectId(_id)};
         return ActivityModel.deleteOne(filter);
     }
 

@@ -12,6 +12,11 @@ export class TravelerDao {
         return TravelerModel.findOne(this.getTravelerFilter(query));
     }
 
+    async findTravelerById(_id) {
+        let filter = {_id: mongoose.Types.ObjectId(_id)};
+        return TravelerModel.findOne(filter);
+    }
+
     async createTraveler(traveler) {
         return TravelerModel.create(traveler);
     }
@@ -27,9 +32,8 @@ export class TravelerDao {
             {upsert, new: true});
     }
 
-    async deleteTraveler(params) {
-        let filter = {_id: mongoose.Types.ObjectId(params._id)};
-        console.log('filter: ', filter)
+    async deleteTraveler(_id) {
+        let filter = {_id: mongoose.Types.ObjectId(_id)};
         return TravelerModel.deleteOne(filter);
     }
 

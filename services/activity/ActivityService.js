@@ -35,6 +35,10 @@ export class ActivityService {
         return this.dao.findActivityByParams(query)
     }
 
+    async findActivityById(_id) {
+        return this.dao.findActivityById(_id)
+    }
+
     async updateActivity(query, updatedActivity, upsert) {
         const errors = this.validateActivityOnUpdate(updatedActivity, query);
         if (errors && errors.length) {
@@ -43,11 +47,8 @@ export class ActivityService {
         return this.dao.updateActivity(query, updatedActivity, upsert)
     }
 
-    async deleteActivity(params) {
-        if (!params._id) {
-            throw new Error("You need _id in order to query for an activity");
-        }
-        return this.dao.deleteActivity(params);
+    async deleteActivity(_id) {
+        return this.dao.deleteActivity(_id);
     }
 
     async deleteAllActivities() {
