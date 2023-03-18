@@ -1,4 +1,4 @@
-import {TravelerModel} from "./models/travel.js";
+import {TravelerModel} from "./traveler.js";
 import * as mongoose from 'mongoose'
 
 

@@ -1,4 +1,4 @@
-import { ActivityModel } from "./models/activity.js";
+import { ActivityModel } from "./activity.js";
 import mongoose from "mongoose";
 
 export class ActivityDao {
