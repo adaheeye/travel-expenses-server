@@ -1,5 +1,5 @@
 # Travel Expenses REST API 
-A simple Express.js/Node.js REST API for managing traveler and activity data.
+The Travel Expenses REST API is a full-stack web application designed to manage group expenses for travelers. The API is built with Node.js, Express.js, and Mongoose for MongoDB integration, and features a set of endpoints to manage travelers and activities.
 
 ## Features
 * Create, modify, retrieve, and delete traveler(s) and activity(ies) data.
